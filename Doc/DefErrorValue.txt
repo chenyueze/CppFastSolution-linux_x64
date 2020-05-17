@@ -1,0 +1,80 @@
+常规错误
+#define __ERROR						0X00000	
+运行成功		
+#define __SUCCESS					0X00001
+//PE FILE DEFINE
+PE文件打开失败
+#define __FILE_OPEN_ERROR			0X00002
+PE文件读取失败
+#define __FILE_READ_ERROR			0X00003
+文件不是PE文件
+#define __FILE_NO_PE				0X00004
+文件无NT头
+#define __FILE_NO_NT				0X00005
+文件保存失败
+#define __FILE_SAVE_ERROR			0X00006
+文件写入失败
+#define __FILE_WRITE_ERROR			0X00007
+最后一个节区后不为空或空间不足
+#define __LASTSECTION_NO_NULL		0X00008
+文件实际写入大小与设置的写入大小值不相等
+#define __FILE_WRITESIZE_MISMATCH	0X00009
+文件过大
+#define __FILE_TOO_BIG				0X0000A
+节区表头大小固定为40
+#define __SECTION_SIZE				0X00028
+文件最大大小
+#define __I386_FILE_MAX				0XFFFFFFFF
+
+//TCPSocket DEINE
+WSA初始化失败（windows)
+#define __SOCK_WSAINIT_ERROR		0X0000B
+套接字初始化失败
+#define __SOCK_INIT_ERROR		          __SOCK_WSAINIT_ERROR+1
+端口设置错误
+#define __SOCK_PORT_ERROR			    __SOCK_WSAINIT_ERROR+2
+IP设置错误
+#define __SOCK_IP_ERROR				        __SOCK_WSAINIT_ERROR+3
+监听出错
+#define __SOCK_LISTEN_ERROR			  __SOCK_WSAINIT_ERROR+4
+套接字关闭出错
+#define __SOCKET_CLOSE_ERROR	    __SOCK_WSAINIT_ERROR+5
+监听最大连接数设置过大
+#define __SOCKET_LISTENNUM_TOOBIG   __SOCK_WSAINIT_ERROR+6
+接收客户端出错
+#define __SOCK_ACCEPT_ERROR			__SOCK_WSAINIT_ERROR+7
+连接出错
+#define __SOCK_CONNECT_ERROR		__SOCK_WSAINIT_ERROR+8
+ip地址为空
+#define __SOCK_IP_ISNULL			       __SOCK_WSAINIT_ERROR+9
+没有收到数据
+#define __SOCKET_NO_RECV			     __SOCK_WSAINIT_ERROR+10
+发送错误
+#define __SOCKET_SEND_ERROR          __SOCK_WSAINIT_ERROR+11
+接收出错
+#define __SOCKET_RECV_ERROR          __SOCK_WSAINIT_ERROR+12
+
+
+不是一个base64码
+#define __BASE_NO_BASE64			0X00018
+
+SMTP错误
+#define __SMTP_ERROR                            0X00019
+HELO标志发送出错
+#define __SMTP_HELO_ERROR			__SMTP_ERROR+1
+AUTH LOGIN登录标志发送出错
+#define __SMTP_AUTH_ERROR			__SMTP_ERROR+2
+登录用户名或密码(授权码)为空
+#define __SMTP_USERPASSWD_ERROR		__SMTP_ERROR+3
+密码错误
+#define __SMTP_PASSWD_ERROR			__SMTP_ERROR+4
+发送地址出错
+#define __SMTP_FROM_ERROR			__SMTP_ERROR+5
+发往地址出错
+#define __SMTP_RECPTO_ERROR			__SMTP_ERROR+6
+关闭SMTP套接字连接出错
+#define __SMTP_QUIT_ERROR			__SMTP_ERROR+7
+数据标志data出错
+#define __SMTP_DATAFLAG_ERROR		__SMTP_ERROR+8
+邮件发送出错
+#define __SMTP_EMAILSEND_ERROR		__SMTP_ERROR+9

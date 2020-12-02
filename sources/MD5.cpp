@@ -134,7 +134,7 @@ void MD5::MD5Encode
 
 bool MD5::MD5StrValidate
 (
-	_In_ const char * input1, 
+	_In_ const char * input1,
 	_In_ const char * input2
 )
 {

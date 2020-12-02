@@ -11,27 +11,27 @@ class SMTPSocket
 public:
 	explicit SMTPSocket();
 	//����˽�����Ե�set����
-	void setIpAddress(string ip);
+	void setIpAddress(std::string ip);
 	void setPort(int port);
-	void setHostName(string hostname);
+	void setHostName(std::string hostname);
 	//�û�������������
 	void setUserPasswd
 	(
-		_In_ string user,
-		_In_ string passwd
+		_In_ std::string user,
+		_In_ std::string passwd
 	);
 	void setFromandTo
 	(
-		_In_ string from,
-		_In_ string sendto
+		_In_ std::string from,
+		_In_ std::string sendto
 	);
 	void setSubjectandMsg
 	(
-		_In_ string subject,
-		_In_ string Msg,
+		_In_ std::string subject,
+		_In_ std::string Msg,
 		_In_ unsigned MsgSize
 	);
-	void addRcpto(string rcpto);
+	void addRcpto(std::string rcpto);
 	//��ʼ�����¼����
 	int SMTPInit();
 	int Login();
@@ -46,23 +46,22 @@ public:
 	~SMTPSocket();
 
 private:
-	string ipAddress;
+	std::string ipAddress;
 	int port;
 
-	string Base64Uname;
-	string username;
-	string Base64Passwd;
-	string Passwd;
-	string from;
-	string sendTo;
-	string subject;
-	string Msg;
-	string HostName="root";
-	
+	std::string Base64Uname;
+	std::string username;
+	std::string Base64Passwd;
+	std::string Passwd;
+	std::string from;
+	std::string sendTo;
+	std::string subject;
+	std::string Msg;
+	std::string HostName="root";
+
 	unsigned long MsgSize = 0;
-	vector<string> Tolist;
+	std::vector<std::string> Tolist;
 	int* MSocket;
 	TCPSocket* S;
 };
 #endif
-

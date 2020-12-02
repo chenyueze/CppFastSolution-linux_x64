@@ -2,7 +2,6 @@
 #include<iostream>
 #include<cstring>
 #include"DefHead.h"
-using namespace std;
 
 const cu_char base64tab[64] =
 {
@@ -56,14 +55,14 @@ class  Base64
 {
 public:
 	explicit Base64();
-	static string Base64Encode
+	static std::string Base64Encode
 	(
-		_In_ string src,
+		_In_ std::string src,
 	   	_In_ cu_long srcsize
 	);
-	static string Base64Decode
+	static std::string Base64Decode
 	(
-		_In_ string src,
+		_In_ std::string src,
 		_In_ cu_long srcsize
 	);
 
@@ -72,4 +71,3 @@ private:
 	cu_long srcsize = 0;
 
 };
-

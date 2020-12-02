@@ -2,13 +2,12 @@
 #define RSA_H
 
 #include<iostream>
-#include<DefHead.h>
+#include "DefHead.h"
+#include "C_EncryCore.h"
 #include<string>
 #include<vector>
 #include<time.h>
-#include<C_EncryCore.h>
 
-using namespace std;
 
 
 class RSA:public CEncryCore
@@ -17,22 +16,22 @@ class RSA:public CEncryCore
         explicit RSA();
         void getKey
         (
-            _Inout_ string& public_key,
-            _Inout_ string& private_key,
-            _Inout_ string& n
+            _Inout_ std::string& public_key,
+            _Inout_ std::string& private_key,
+            _Inout_ std::string& n
         );
-        string RSA_Encode
+        std::string RSA_Encode
         (
             _In_  const char* IN_Data,
             _Inout_ size_t& inoutLen,
-            _In_ string public_key,
-            _In_ string n
+            _In_ std::string public_key,
+            _In_ std::string n
         );
-        string RSA_Decode
+        std::string RSA_Decode
         (
-            _In_ string private_key,
-            _In_ string n,
-            _In_ string c_data,
+            _In_ std::string private_key,
+            _In_ std::string n,
+            _In_ std::string c_data,
             _Inout_ size_t& inoutLen
         );
 

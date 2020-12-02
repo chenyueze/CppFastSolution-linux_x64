@@ -7,7 +7,7 @@ SMTPSocket::SMTPSocket()
 	;
 }
 
-void SMTPSocket::setIpAddress(string ip)
+void SMTPSocket::setIpAddress(std::string ip)
 {
 	this->ipAddress = ip;
 }
@@ -17,15 +17,15 @@ void SMTPSocket::setPort(int port)
 	this->port = port;
 }
 
-void SMTPSocket::setHostName(string hostname)
+void SMTPSocket::setHostName(std::string hostname)
 {
 	this->HostName = hostname;
 }
 
 void SMTPSocket::setUserPasswd
 (
-	_In_ string user,
-	_In_ string passwd
+	_In_ std::string user,
+	_In_ std::string passwd
 )
 {
 	this->Base64Uname = Base64::Base64Encode(user, user.length());
@@ -37,8 +37,8 @@ void SMTPSocket::setUserPasswd
 
 void SMTPSocket::setFromandTo
 (
-	_In_ string from, 
-	_In_ string sendto)
+	_In_ std::string from,
+	_In_ std::string sendto)
 {
 	this->from = from;
 	this->sendTo = sendto;
@@ -47,8 +47,8 @@ void SMTPSocket::setFromandTo
 
 void SMTPSocket::setSubjectandMsg
 (
-	_In_ string subject,
-	_In_ string Msg,
+	_In_ std::string subject,
+	_In_ std::string Msg,
 	_In_ unsigned MsgSize
 )
 {
@@ -57,7 +57,7 @@ void SMTPSocket::setSubjectandMsg
 	this->MsgSize = this->Msg.length();
 }
 
-void SMTPSocket::addRcpto(string rcpto)
+void SMTPSocket::addRcpto(std::string rcpto)
 {
 	this->Tolist.push_back(rcpto);
 }
@@ -89,13 +89,13 @@ int SMTPSocket::SMTPInit()
 int SMTPSocket::Login()
 {
 	char temp[5];
-	string backcode;
-	string s;
+	std::string backcode;
+	std::string s;
 	if ((this->Base64Passwd.empty()) || (this->Base64Uname.empty()))
 		return __SMTP_USERPASSWD_ERROR;
 	//HELO
 	int back = __SUCCESS;
-	string helo = "helo ";
+	std::string helo = "helo ";
 	helo.append(this->HostName).append("\r\n");
 	unsigned long sbuffsize = helo.length();
 	unsigned char recvbuff[100];
@@ -114,7 +114,7 @@ int SMTPSocket::Login()
 
 	//auth login
 	memset(recvbuff, 0, 100);
-	string auth = "auth login\r\n";
+	std::string auth = "auth login\r\n";
 	unsigned long ausize = auth.length();
 	rbuffsize = sizeof(recvbuff);
 	back = TCPSendRecv(*(this->MSocket), auth.c_str(), ausize, (char*)recvbuff, rbuffsize);
@@ -122,7 +122,7 @@ int SMTPSocket::Login()
 		return back;
 	if (strcmp((const char*)recvbuff, "334 dXNlcm5hbWU6\r\n") != 0)
 		return __SMTP_AUTH_ERROR;
-	
+
 	//send base64username
 	memset(recvbuff, 0, 100);
 	auth.clear();
@@ -158,12 +158,12 @@ int SMTPSocket::Login()
 int SMTPSocket::SendMail()
 {
 	char temp[5];
-	string backcode;
-	string s;
+	std::string backcode;
+	std::string s;
 
 	int back = __SUCCESS;
-	string mailFrom = "mail from:<";
-	string mailTo = "rcpt to:<";
+	std::string mailFrom = "mail from:<";
+	std::string mailTo = "rcpt to:<";
 	mailFrom.append(this->from).append(">\r\n");
 	mailTo.append(this->sendTo).append(">\r\n");
 
@@ -206,7 +206,7 @@ int SMTPSocket::SendMail()
 	memset(recvbuff, 0, 200);
 	rbuffsize = sizeof(recvbuff);
 
-	string sd = "data\r\n";
+	std::string sd = "data\r\n";
 	unsigned long sds = sd.length();
 
 	back = TCPSendRecv(*(this->MSocket), sd, sds,(char*) recvbuff, rbuffsize);
@@ -220,14 +220,14 @@ int SMTPSocket::SendMail()
 	//start send!
 	memset(recvbuff, 0, 200);
 	rbuffsize = sizeof(recvbuff);
-	
-	string Mime =
+
+	std::string Mime =
 		"MIME-Version: 1.0\r\n"
 		"Content - Type: text / plain; charset = UTF - 8\r\n"
 		"Content-Transfer-Encoding: base64\r\n"
 		"X - Mailer : Microsoft Outlook Express 6.00.2900.2869\r\n\r\n";
 
-	string sendData;
+	std::string sendData;
 	sendData.append("From: ").append(this->from).append("\r\n");
 	sendData.append("To: ").append(this->sendTo).append("\r\n");
 	sendData.append("Subject: ").append(this->subject).append("\r\n");
@@ -255,12 +255,12 @@ int SMTPSocket::SendMail()
 int SMTPSocket::SendMailAll()
 {
 	char temp[5];
-	string backcode;
-	string s;
+	std::string backcode;
+	std::string s;
 
 	int back = __SUCCESS;
-	string mailFrom = "mail from:<";
-	
+	std::string mailFrom = "mail from:<";
+
 	mailFrom.append(this->from).append(">\r\n");
 
 	unsigned long mailFromsize = mailFrom.length();
@@ -288,7 +288,7 @@ int SMTPSocket::SendMailAll()
 		memset(recvbuff, 0, 200);
 		rbuffsize = sizeof(recvbuff);
 
-		string mailTo = "rcpt to:<";
+		std::string mailTo = "rcpt to:<";
 		mailTo.append(this->Tolist.at(i)).append(">\r\n");
 		unsigned long mailTosize = mailTo.length();
 
@@ -308,7 +308,7 @@ int SMTPSocket::SendMailAll()
 	memset(recvbuff, 0, 200);
 	rbuffsize = sizeof(recvbuff);
 
-	string sd = "data\r\n";
+	std::string sd = "data\r\n";
 	unsigned long sds = sd.length();
 
 	back = TCPSendRecv(*(this->MSocket), sd, sds,(char*) recvbuff, rbuffsize);
@@ -323,13 +323,13 @@ int SMTPSocket::SendMailAll()
 	memset(recvbuff, 0, 200);
 	rbuffsize = sizeof(recvbuff);
 
-	string Mime =
+	std::string Mime =
 		"MIME-Version: 1.0\r\n"
 		"Content - Type: text / plain; charset = UTF - 8\r\n"
 		"Content-Transfer-Encoding: base64\r\n"
 		"X - Mailer : Microsoft Outlook Express 6.00.2900.2869\r\n\r\n";
 
-	string sendData;
+	std::string sendData;
 	sendData.append("From: ").append(this->from).append("\r\n");
 	sendData.append("Subject: ").append(this->subject).append("\r\n");
 	sendData.append(Mime);

@@ -110,7 +110,7 @@ bool SHA1::Sha1StrValidate
 )
 {
 	if (!strcmp(input_1, input_2))
-		return true; 
+		return true;
 	return false;
 }
 
@@ -118,19 +118,19 @@ inline void SHA1::CharToUlong
 (
 	_In_ const unsigned char* char_data,
 	_Inout_ unsigned int* ulong_data
-) 
+)
 {
 	for (int i = 0; i < 16; i++)
 	{
 		int j = 4 * i;
-		ulong_data[i] = ((unsigned int )char_data[j]) << 24 | 
-						((unsigned int)char_data[1 + j]) << 16 | 
+		ulong_data[i] = ((unsigned int )char_data[j]) << 24 |
+						((unsigned int)char_data[1 + j]) << 16 |
 						((unsigned int)char_data[2 + j]) << 8 |
 						((unsigned int)char_data[3 + j]) << 0;
 	}
 	for (int i = 16; i < 80; i++)
 	{
-		ulong_data[i] = ulong_data[i - 16] ^ ulong_data[i - 14] ^ 
+		ulong_data[i] = ulong_data[i - 16] ^ ulong_data[i - 14] ^
 						ulong_data[i - 8] ^ ulong_data[i - 3];
 		ulong_data[i] = (ulong_data[i] << 1) | (ulong_data[i] >> 31);
 	}

@@ -15,8 +15,6 @@
 #include<unistd.h>
 #include<iostream>
 
-using namespace std;
-
 
 class  UDPSocket
 {
@@ -27,7 +25,7 @@ public:
 	explicit UDPSocket
 	(
 		_In_ int port,
-		_In_ string ip,
+		_In_ std::string ip,
 		_Inout_ unsigned long& back
 	);
 
@@ -37,7 +35,7 @@ public:
 		_In_ unsigned long ip,
 		_Inout_ unsigned long& back
 	);
-	
+
 	int SocketInit();
 
 	int UDPRecvfrom
@@ -56,14 +54,14 @@ public:
 
 	//set����
 	void setPort(_In_ int Port);
-	void setIp(_In_ string ip);
+	void setIp(_In_ std::string ip);
 
 	//static function
 	//����ģʽ�ӿ�����
 	static UDPSocket* getInterface
 	(
 		_In_ int port,
-		_In_ string ip,
+		_In_ std::string ip,
 		_Inout_ unsigned long& back
 	);
 	static UDPSocket* getInterface
@@ -73,10 +71,10 @@ public:
 		_Inout_ unsigned long & back
 	);
 
-	
+
 	//����˼����󶨺��������˼�������
 	int UDPbind();
-	
+
 	//�ر��׽���,���ʧ�ܷ���ԭʼWINAPI WSAGetLastError()��������ֵ
 	int UDPClose();
 
@@ -85,7 +83,7 @@ private:
 	static UDPSocket* __Inter;
 	//�˿���ip
 	int port;
-	string ip;
+	std::string ip;
 	unsigned long UIP;
 	//�׽�����addr�ṹ��
 	int MSocket;

@@ -11,7 +11,7 @@ UDPSocket::UDPSocket()
 UDPSocket::UDPSocket
 (
 	_In_ int port,
-	_In_ string ip,
+	_In_ std::string ip,
 	_Inout_ unsigned long & back
 )
 {
@@ -45,8 +45,8 @@ UDPSocket::UDPSocket
 UDPSocket::UDPSocket(int port, unsigned long ip, unsigned long & back)
 {
 	this->port = port;
-	this->UIP = ip;	
-	back = __SUCCESS;	
+	this->UIP = ip;
+	back = __SUCCESS;
 
 	//��ʼ���׽���
 	this->MSocket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
@@ -99,7 +99,7 @@ int UDPSocket::SocketInit()
 
 int UDPSocket::UDPRecvfrom
 (
-	_Inout_ char * recvBuff, 
+	_Inout_ char * recvBuff,
 	_In_ unsigned long recvSize
 )
 {
@@ -116,13 +116,13 @@ int UDPSocket::UDPRecvfrom
 
 int UDPSocket::UDPSendto
 (
-	_In_ const char * sendBuff, 
+	_In_ const char * sendBuff,
 	_In_ unsigned long sendSize
 )
 {
 	int backLen=sendto(this->MSocket,
-		sendBuff, sendSize, 0, 
-		(struct sockaddr*)&this->addr_in, 
+		sendBuff, sendSize, 0,
+		(struct sockaddr*)&this->addr_in,
 		sizeof(this->addr_in));
 
 	if (backLen == SOCKET_ERROR)
@@ -140,7 +140,7 @@ void UDPSocket::setPort(_In_ int Port)
 	this->port = Port;
 }
 
-void UDPSocket::setIp(_In_ string ip)
+void UDPSocket::setIp(_In_ std::string ip)
 {
 	this->ip = ip;
 }
@@ -170,7 +170,7 @@ int UDPSocket::UDPClose()
 UDPSocket * UDPSocket::getInterface
 (
 	_In_ int port,
-	_In_ string ip,
+	_In_ std::string ip,
 	_Inout_ unsigned long & back
 )
 {
@@ -208,6 +208,3 @@ UDPSocket * UDPSocket::getInterface
 	back = __SUCCESS;
 	return __Inter;
 }
-
-
-

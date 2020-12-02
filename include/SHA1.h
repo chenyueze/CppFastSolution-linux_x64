@@ -1,10 +1,9 @@
 #pragma once
 #include<iostream>
 #include<cstring>
-#include<DefHead.h>
+#include"DefHead.h"
 
 #define SHA1_LEN 41
-using namespace std;
 
 
 class SHA1
@@ -29,4 +28,3 @@ private:
 		_Inout_ unsigned int* ulong_data
 	);
 };
-

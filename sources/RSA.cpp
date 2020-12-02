@@ -7,14 +7,14 @@ RSA::RSA()
 
 void RSA::getKey
 (
-    _Inout_ string& public_key,
-    _Inout_ string& private_key,
-    _Inout_ string& n
+    _Inout_ std::string& public_key,
+    _Inout_ std::string& private_key,
+    _Inout_ std::string& n
 )
 {
     mpz_t key_p, key_q, temp_n;
     mpz_t fi, pub_key, pri_key;
-    //初始化p,q,n,φ(n),公钥，私钥
+    //锟斤拷始锟斤拷p,q,n,锟斤拷(n),锟斤拷钥锟斤拷私钥
     mpz_init(key_p);
     mpz_init(key_q);
     mpz_init(temp_n);
@@ -22,39 +22,39 @@ void RSA::getKey
     mpz_init(pub_key);
     mpz_init(pri_key);
     /*
-    *生成随机1024位质数
+    *锟斤拷锟斤拷锟斤拷锟斤拷1024位锟斤拷锟斤拷
     **/
-   //随机数种子
+   //锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
     gmp_randstate_t grat;
-    //默认生成在随机性与效率之间取一个折中
+    //默锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷效锟斤拷之锟斤拷取一锟斤拷锟斤拷锟斤拷
     gmp_randinit_default(grat);
-    //以当前时间作为随机数种子
+    //锟皆碉拷前时锟斤拷锟斤拷为锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
     gmp_randseed_ui(grat,time(NULL));
-    //生成两个个1024位的随机整数
+    //锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷1024位锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
     mpz_urandomb(key_p,grat,1024);
     mpz_urandomb(key_q,grat,1024);
-    //生成素数
+    //锟斤拷锟斤拷锟斤拷锟斤拷
     mpz_nextprime(key_p,key_p);
     mpz_nextprime(key_q,key_q);
     /*
-    *获得n与φ(n)
+    *锟斤拷锟斤拷n锟斤拷锟斤拷(n)
     **/
-    //p×q得到n
+    //p锟斤拷q锟矫碉拷n
     mpz_mul(temp_n,key_q,key_p);
-    //p,q分别减一后相乘得到φ(n),
-    //注意结尾的ui表示32位无符号整数
+    //p,q锟街憋拷锟斤拷一锟斤拷锟斤拷锟剿得碉拷锟斤拷(n),
+    //注锟斤拷锟斤拷尾锟斤拷ui锟斤拷示32位锟睫凤拷锟斤拷锟斤拷锟斤拷
     mpz_sub_ui(key_p,key_p,1);
     mpz_sub_ui(key_q,key_q,1);
     mpz_mul(fi,key_q,key_p);
-    /*得到公钥e此值可取65537、17、37、47
-    *,但要注意，此值除65537以外其他小值
-    *做公钥得到的密文是固定不变的，也就是说安全性是不可靠的
+    /*锟矫碉拷锟斤拷钥e锟斤拷值锟斤拷取65537锟斤拷17锟斤拷37锟斤拷47
+    *,锟斤拷要注锟解，锟斤拷值锟斤拷65537锟斤拷锟斤拷锟斤拷锟斤拷小值
+    *锟斤拷锟斤拷钥锟矫碉拷锟斤拷锟斤拷锟斤拷锟角固讹拷锟斤拷锟斤拷锟侥ｏ拷也锟斤拷锟斤拷说锟斤拷全锟斤拷锟角诧拷锟缴匡拷锟斤拷
     **/
     mpz_set_ui(pub_key,65537);
 
-    //逆元运算
+    //锟斤拷元锟斤拷锟斤拷
     mpz_invert(pri_key,pub_key,fi);
-    //将公钥私钥与n化为字符串
+    //锟斤拷锟斤拷钥私钥锟斤拷n锟斤拷为锟街凤拷锟斤拷
     mpz_class temp_d(pri_key);
     mpz_class swap_n(temp_n);
     mpz_class temp_e(pub_key);
@@ -70,32 +70,32 @@ void RSA::getKey
     mpz_clear(pri_key);
 }
 
-string RSA::RSA_Encode
+std::string RSA::RSA_Encode
 (
     _In_ const char* IN_Data,
      _Inout_ size_t& inoutLen,
-    _In_ string public_key,
-    _In_ string n
+    _In_ std::string public_key,
+    _In_ std::string n
 )
 {
     mpz_t m,pub_e,temp_n;
     mpz_init(m);
     mpz_init(pub_e);
     mpz_init(temp_n);
-    //取得公钥、n、明文，将输入内容统一转化为/mpz_t高精度整数
+    //取锟矫癸拷钥锟斤拷n锟斤拷锟斤拷锟侥ｏ拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷统一转锟斤拷为/mpz_t锟竭撅拷锟斤拷锟斤拷锟斤拷
     mpz_set_str(pub_e,public_key.c_str(),10);
     mpz_set_str(temp_n,n.c_str(),10);
-    string out_data;
-    //对字符串循环加密，并用回车隔开
+    std::string out_data;
+    //锟斤拷锟街凤拷锟斤拷循锟斤拷锟斤拷锟杰ｏ拷锟斤拷锟矫回筹拷锟斤拷锟斤拷
     for(int i=0;i<inoutLen;i++)
     {
         mpz_set_ui(m,(unsigned long)IN_Data[i]);
         /*
-        *模幂操作，取密文
+        *模锟捷诧拷锟斤拷锟斤拷取锟斤拷锟斤拷
         *c=(m^e) mod n
         **/
         mpz_powm(m,m,pub_e,temp_n);
-        //取得字符串
+        //取锟斤拷锟街凤拷锟斤拷
         mpz_class c_data(m);
         out_data.append(c_data.get_str());
         out_data.append("\n");
@@ -108,19 +108,19 @@ string RSA::RSA_Encode
     return out_data;
 }
 
-string RSA::RSA_Decode
+std::string RSA::RSA_Decode
 (
-    _In_ string private_key,
-    _In_ string n,
-    _In_ string c_data,
+    _In_ std::string private_key,
+    _In_ std::string n,
+    _In_ std::string c_data,
     _Inout_ size_t& inoutLen
 )
 {
-    vector<string>C_List;
-    string temp_str;
+    vector<std::string>C_List;
+    std::string temp_str;
     cout<<"\n\n\n\n\n\n";
-    //循环拆分字符串，根据原有字符个数拆分为字符串容器列表
-    //以此按顺序处理密文
+    //循锟斤拷锟斤拷锟斤拷锟街凤拷锟斤拷锟斤拷锟斤拷锟斤拷原锟斤拷锟街凤拷锟斤拷锟斤拷锟斤拷锟斤拷为锟街凤拷锟斤拷锟斤拷锟斤拷锟叫憋拷
+    //锟皆此帮拷顺锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
     for(int i=0;i<inoutLen;i++)
     {
         if(c_data.at(i)=='\n')
@@ -132,17 +132,17 @@ string RSA::RSA_Decode
         temp_str+=c_data.at(i);
     }
     //cout<<"list\n\n"<<C_List.at(0);
-    
+
     mpz_t pri_key,temp_n,C_Data;
     mpz_init(pri_key);
     mpz_init(temp_n);
     mpz_init(C_Data);
-    //将字符串转为mpz_t高精度整数
+    //锟斤拷锟街凤拷锟斤拷转为mpz_t锟竭撅拷锟斤拷锟斤拷锟斤拷
     mpz_set_str(pri_key,private_key.c_str(),10);
     mpz_set_str(temp_n,n.c_str(),10);
-    string back_data;
-    //循环根据容器个数来判断原本有几个字符，
-    //并将其密文解析为明文
+    std::string back_data;
+    //循锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟叫讹拷原锟斤拷锟叫硷拷锟斤拷锟街凤拷锟斤拷
+    //锟斤拷锟斤拷锟斤拷锟斤拷锟侥斤拷锟斤拷为锟斤拷锟斤拷
     for(int i=0;i<C_List.size();i++)
     {
         mpz_set_str(C_Data,C_List.at(i).c_str(),10);

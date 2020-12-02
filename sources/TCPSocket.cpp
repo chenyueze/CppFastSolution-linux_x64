@@ -8,7 +8,7 @@ TCPSocket::TCPSocket()
 
 TCPSocket::TCPSocket
 (
-	_In_ int port, 
+	_In_ int port,
 	_In_ unsigned long ip,
 	_Inout_ unsigned long & back
 )
@@ -25,7 +25,7 @@ TCPSocket::TCPSocket
 		back=__SOCK_PORT_ERROR;
 		return;
 	}
-	
+
 	if (this->UIP != INADDR_ANY)
 	{
 		back = __SOCK_IP_ERROR;
@@ -40,8 +40,8 @@ TCPSocket::TCPSocket
 
 TCPSocket::TCPSocket
 (
-	_In_ int port, 
-	_In_ string ip,
+	_In_ int port,
+	_In_ std::string ip,
 	_Inout_ unsigned long & back
 )
 {
@@ -62,8 +62,8 @@ TCPSocket::TCPSocket
 	this->addr_in.sin_family = AF_INET;
 	this->addr_in.sin_port = htons(this->port);
 	inet_pton(
-		AF_INET, 
-		this->ip.c_str(), 
+		AF_INET,
+		this->ip.c_str(),
 		&this->addr_in.sin_addr.s_addr);
 }
 
@@ -105,7 +105,7 @@ void TCPSocket::setIp(_In_ unsigned long ip)
 	this->UIP = ip;
 }
 
-void TCPSocket::setIp(_In_ string ip)
+void TCPSocket::setIp(_In_ std::string ip)
 {
 	this->ip = ip;
 }
@@ -183,8 +183,8 @@ int TCPSocket::TCPClose()
 
 TCPSocket * TCPSocket::getInterface
 (
-	_In_ int port, 
-	_In_ string ip, 
+	_In_ int port,
+	_In_ std::string ip,
 	_Inout_ unsigned long & back
 )
 {
@@ -204,8 +204,8 @@ TCPSocket * TCPSocket::getInterface
 
 TCPSocket * TCPSocket::getInterface
 (
-	_In_ int port, 
-	_In_ unsigned long ip, 
+	_In_ int port,
+	_In_ unsigned long ip,
 	_Inout_ unsigned long & back
 )
 {
@@ -226,7 +226,7 @@ TCPSocket * TCPSocket::getInterface
 int TCPSend
 (
 	_In_ int nsocket,
-	_In_ string buff,
+	_In_ std::string buff,
 	_In_ unsigned long buffsize
 )
 {
@@ -248,7 +248,7 @@ unsigned long TCPRecv
 unsigned long TCPSendRecv
 (
 	_In_ int nsocket,
-	_In_ string sbuff,
+	_In_ std::string sbuff,
 	_In_ unsigned long& sbuffsize,
 	_Inout_ char* rbuff,
 	_Inout_ unsigned long& rbuffsize
@@ -273,7 +273,7 @@ unsigned long TCPSendRecv
 unsigned long TCPRecvSend
 (
 	_In_ int nsocket,
-	_In_ string sbuff,
+	_In_ std::string sbuff,
 	_In_ unsigned long& sbuffsize,
 	_Inout_ char* rbuff,
 	_Inout_ unsigned long& rbuffsize

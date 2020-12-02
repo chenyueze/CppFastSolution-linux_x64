@@ -4,15 +4,15 @@ Base64::Base64()
 {
 }
 
-string Base64::Base64Encode
+std::string Base64::Base64Encode
 (
-	_In_ string tsrc,
-	_In_ cu_long srcsize 
+	_In_ std::string tsrc,
+	_In_ cu_long srcsize
 )
 {
 	const cu_char* src = (const cu_char*)tsrc.c_str();
 	cu_char* tempBuff = new cu_char[3];
-	string destStr;
+	std::string destStr;
 	//ȡ�����ʣ��������
 	int lastNumb = srcsize % 3;
 
@@ -51,14 +51,14 @@ string Base64::Base64Encode
 	return destStr;
 }
 
-string Base64::Base64Decode
+std::string Base64::Base64Decode
 (
-	_In_ string tsrc,
+	_In_ std::string tsrc,
 	_In_ cu_long srcsize
 )
 {
 	const cu_char *src = (const cu_char*)tsrc.c_str();
-	string backStr;
+	std::string backStr;
 	cu_char* tempBuff = new cu_char[4];
 	if (srcsize % 4)
 		return "";
@@ -81,5 +81,3 @@ string Base64::Base64Decode
 	delete[] tempBuff;
 	return backStr;
 }
-
-

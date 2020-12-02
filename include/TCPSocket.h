@@ -14,13 +14,11 @@
 #include<unistd.h>
 #include<iostream>
 
-using namespace std;
-
 //���ͺ��������ʧ�ܾͷ�����ϸ��Ϣ,�ɹ���Ϊ__SUCCESS
 int TCPSend
 (
 	_In_ int  nsocket,
-	_In_ string buff,
+	_In_ std::string buff,
 	_In_ unsigned long buffsize
 );
 
@@ -36,7 +34,7 @@ extern unsigned long TCPRecv
 extern unsigned long TCPSendRecv
 (
 	_In_ int nsocket,
-	_In_ string sbuff,
+	_In_ std::string sbuff,
 	_In_ unsigned long& sbuffsize,
 	_Inout_ char* rbuff,
 	_Inout_ unsigned long& rbuffsize
@@ -46,7 +44,7 @@ extern unsigned long TCPSendRecv
 extern unsigned long TCPRecvSend
 (
 	_In_ int nsocket,
-	_In_ string sbuff,
+	_In_ std::string sbuff,
 	_In_ unsigned long& sbuffsize,
 	_Inout_ char* rbuff,
 	_Inout_ unsigned long& rbuffsize
@@ -66,8 +64,8 @@ public:
 	);
 	explicit TCPSocket
 	(
-		_In_ int port, 
-		_In_ string ip,
+		_In_ int port,
+		_In_ std::string ip,
 		_Inout_ unsigned long& back
 	);
 	int SocketInit();
@@ -76,21 +74,21 @@ public:
 	//set����
 	void setPort(_In_ int Port);
 	void setIp(_In_ unsigned long ip);
-	void setIp(_In_ string ip);
+	void setIp(_In_ std::string ip);
 
 	//static function
 	//����ģʽ�ӿ�����
 	static TCPSocket* getInterface
 	(
 		_In_ int port,
-		_In_ string ip,
+		_In_ std::string ip,
 		_Inout_ unsigned long& back
 	);
 	//����ģʽ���ʽӿ�
 	static TCPSocket* getInterface
 	(
-		_In_ int port, 
-		_In_ unsigned long ip, 
+		_In_ int port,
+		_In_ unsigned long ip,
 		_Inout_ unsigned long& back
 	);
 	//����˼����󶨺��������˼�������
@@ -120,7 +118,7 @@ private:
 	static TCPSocket* __Inter;
 	//�˿���ip
 	int port;
-	string ip;
+	std::string ip;
 	unsigned long UIP;
 	//�׽�����addr�ṹ��
 	int MSocket;

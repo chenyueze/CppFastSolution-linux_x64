@@ -6,11 +6,9 @@
 #include<cstring>
 #include"DefHead.h"
 
-using namespace std;
-
 #define SHORT_MD5_LEN 16
 #define CHAR_MD5_LEN  34
-	
+
 
 class MD5
 {
@@ -33,5 +31,3 @@ private:
 };
 
 #endif // !MD5_H
-
-
